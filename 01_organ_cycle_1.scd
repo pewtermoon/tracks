@@ -22,8 +22,8 @@ s.recSampleFormat = "int16";
 s.recChannels = 2;
 s.recHeaderFormat = "WAV";
 s.record(path: '../../Users/ollie/Music/sounds/organ_cycle_1.wav');
-s1 = Pstutter(Pgeom(1.0, 2, 4), Pgeom(1.0, 0.5, 4));
-s2 = Pseries(1.3, -0.1, 9);
+s1 = Pstutter(Pgeom(1.0, 2, 4), Pgeom(1.0, 0.5, 4)).asArray;
+s2 = Pseries(1.3, -0.1, 9).asArray;
 Pseq([
 Pbind(
 	\instrument, \playBuf0,
