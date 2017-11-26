@@ -17,15 +17,13 @@ SynthDef(\playBuf0,{| out = 0, bufnum, startPos = 0, dur = 1, amp = 1, rate = 1|
 // Record it to wav with no aiff-c compression
 // otherwise can't convert to flac
 (
-var s1, s2, s3;
+var s1, s2;
 s.recSampleFormat = "int16";
 s.recChannels = 2;
 s.recHeaderFormat = "WAV";
 s.record(path: '../../Users/ollie/Music/sounds/organ_cycle_1.wav');
-//s1 = [0.25,0.25,0.25,0.25, 0.125, 0.125, 0.25, 0.5, 1];
-s1 = [2, 1, 0.5, 0.5, 0.25, 0.25, 0.25, 0.25, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125];
-s3 = [0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3].reverse;
-s2 = [100000, 150000, 200000, 250000, 100000, 100000, 230000, 500000, 110000];
+s1 = Pstutter(Pgeom(1.0, 2, 4), Pgeom(1.0, 0.5, 4));
+s2 = Pseries(1.3, -0.1, 9);
 Pseq([
 Pbind(
 	\instrument, \playBuf0,
@@ -33,7 +31,7 @@ Pbind(
 	\dur, Pseq(s1, 8),
 	\amp, 1,
 	\startPos, Pfunc({b.numFrames.rand}),
-	\rate, Pseq(s3, 8)
+	\rate, Pseq(s2, 8)
 )], 1).play
 // s.stopRecording;
 )
